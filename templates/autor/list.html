@@ -1,11 +1,16 @@
 <H1>Los Autoressssssssssssssssssssssssssssss</H1>
 
-<ul>
-    
+
+<p>
+    <form method="GET">{% csrf_token %}
+        <input type="text" id="kword" name="kword" placeholder="Ingrese Nombre">
+        <button type="submit">Consultar</button>
+    </form>
+</p>
+ 
     {% for a in listado_autores %}
 
-        <li>{{ a.name}}</li>
+        <li>{{ a.name}}  -  {{ a.last_name }}  - {{ a.country }}</li>
     
     {% endfor %}
         
-</ul>
