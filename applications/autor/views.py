@@ -19,5 +19,7 @@ class ListAutores(ListView):
     template_name = 'autor/list.html'
 
     def get_queryset(self):
+        #recuperando la palabra del formulario
+        palabra_clave = self.request.GET.get("kword" , '')
 
-        return Autor.objects.listarAutores()
+        return Autor.objects.buscar_autor2(palabra_clave)

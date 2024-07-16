@@ -3,6 +3,11 @@ from django.db import models
 #importando tabla Autor para autores = models.ManyToManyField(Autor)
 from applications.autor.models import Autor
 
+#importando managers
+from .managers import (
+    ManagersLibro , 
+    ManagersCategoria
+)
 
 # Create your models here.
 
@@ -11,23 +16,35 @@ class Categoria(models.Model):
         "Categoria", max_length=40
     )
 
+    objects = ManagersCategoria()
+
     """ informe admin """
     def __str__(self):
-        return self.category
+        return  str(self.id) + "-" + self.category
 
 
 class Libro(models.Model):
     category = models.ForeignKey(
-        Categoria, on_delete=models.CASCADE
+        Categoria, on_delete=models.CASCADE ,
+        related_name='categoria_libro'
     )
-    Autores = models.ManyToManyField(Autor)
+    autores = models.ManyToManyField(Autor)
     title = models.CharField(
         "titulo", max_length=50
     )
     date = models.DateField("Fecha de lanzamieno")
-    cover = models.ImageField("PILAS_AQUI", upload_to='portada', height_field=None, width_field=None, max_length=None)
-    viws = models.PositiveIntegerField()
+    cover = models.ImageField("Portada", 
+        upload_to='portada', 
+        blank=True,
+        null = True
+    )
+    viws = models.PositiveIntegerField(
+        blank=True,
+        null = True
+    )
+
+    objects = ManagersLibro()
     
     """ informe admin """
     def __str__(self):
-        return self.title
+        return  str(self.id) + "-" + self.title

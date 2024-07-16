@@ -12,4 +12,9 @@ urlpatterns = [
         views.ListLibro.as_view(),
         name = "TotalLibros"
     ),
+    path(
+        'list-librosC/', 
+        views.CategoriaLibros.as_view(),
+        name = "CategoriaLibros"
+    ),
 ]
